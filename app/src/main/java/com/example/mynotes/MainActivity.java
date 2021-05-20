@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+//я заглушка, мой хозяин пока разбирается с 6м ДЗ, так что я могу подзадержаться
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
