@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
  public class ImageFragment extends Fragment {
     //будем передавать аргумент
-    private static final int DEFAULT_INDEX = 0;
+    public static final int DEFAULT_INDEX = 0;
     public static final String ARG_INDEX = "index";
     private int index = DEFAULT_INDEX;
 

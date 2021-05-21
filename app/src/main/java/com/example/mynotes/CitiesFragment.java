@@ -1,5 +1,7 @@
 package com.example.mynotes;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
+
 public class CitiesFragment extends Fragment {
+    //надо написать, что должно открываться в зависимости от ориентации
+    private boolean isLandscape;
+    //будем сохранять, что мы натыкали, две строки ниже
+    private int position = 0;
+    public static final String CURRENT_CITY = "CURRENT_CITY";
+
+    //для сохранения
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(CURRENT_CITY, position);
+    }
+
     // При создании фрагмента укажем его макет
     //Это самый главный метод. Отвечает за то, чтобы заинфлейтить лайаут. Сюда приходит инфлейтер (будет происходить сопоставление лайаута с кодом)
     //ViewGroup container куда помещается наш фрагмент. Может не на всю активити, а на часть.
@@ -26,6 +43,20 @@ public class CitiesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view); //тут работаем со списком
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+        if (savedInstanceState != null){
+            position = savedInstanceState.getInt(CURRENT_CITY, ImageFragment.DEFAULT_INDEX);
+        }
+
+        if (isLandscape){
+            showImage(position);
+        }
     }
 
     // создаём список городов на экране из массива в ресурсах
@@ -45,11 +76,28 @@ public class CitiesFragment extends Fragment {
             tv.setOnClickListener(v -> {
                 //надо передавать сюда файнл! поэтому закрепим выше переменную
                 showImage(currentindex);
+                position = currentindex; //сохраняем
             });
         }
     }
 
-    void showImage(int index){
+    private void showImage(int index) {
+        if(isLandscape){
+            showLandImage(index);
+        }else {
+            showPortImage(index);
+        }
+    }
+
+    private void showLandImage(int index) {
+        //ImageFragment fragment = ImageFragment.newInstance(index);
+        //метод ниже никогда не возращает налл, если нет активити, онн бросает исключение, лучше пользоваться им
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.image_fragment_container, ImageFragment.newInstance(index)).commit();
+    }
+
+
+
+    void showPortImage(int index){
         Intent intent = new Intent();
         intent.setClass(getActivity(), CityImageActivity.class);
         intent.putExtra(ImageFragment.ARG_INDEX, index);
