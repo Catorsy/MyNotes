@@ -29,6 +29,10 @@ public class Note implements Parcelable {
         return date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     protected Note(Parcel in) {
         noteName = in.readString();
         indexDescription = in.readInt();

@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 //этот фрагмент даёт подробную информацию о заметке
 public class NotesDescriptionFragment extends Fragment {
     public static final String ARG_NOTE = "note";
@@ -40,14 +43,22 @@ public class NotesDescriptionFragment extends Fragment {
 // находим в контейнере вьюшку
         TextView descrView = view.findViewById(R.id.description_of_notes_description);
 // получить из ресурсов имя/подробности/дату
-        String[] notes = getResources().getStringArray(R.array.notes);
         String[] descriptions = getResources().getStringArray(R.array.notes_description);
 // вывести нужное
         TextView nameView = view.findViewById(R.id.description_of_notes_name);
+        TextView dataView = view.findViewById(R.id.description_of_notes_date);
         nameView.setTextSize(25);
         nameView.setTypeface(null, Typeface.BOLD);
         nameView.setText(note.getNoteName());
         descrView.setText(descriptions[note.getIndexDescription()]);
+        try{
+            //в альбоме работает, а портрете выбрасывает исключение. Интересно!
+            //FIXME
+            dataView.setText(note.getDate().toString());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
         return view;
     }
 }

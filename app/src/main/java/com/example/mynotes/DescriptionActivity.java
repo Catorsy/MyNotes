@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import java.util.Date;
+
 //для показа подробностей в портрете
 public class DescriptionActivity extends AppCompatActivity {
 
