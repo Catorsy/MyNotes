@@ -1,14 +1,18 @@
 package com.example.mynotes;
 
+import android.app.DatePickerDialog;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
+
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -20,6 +24,10 @@ public class NotesDescriptionFragment extends Fragment {
     public static final int DEFAULT_INDEX = 0;
     private int index = DEFAULT_INDEX;
     private Note note;
+    //попробуем календарь
+    private DatePicker datePicker;
+    Calendar calendar = Calendar.getInstance();
+    TextView dataView;
 
     public static NotesDescriptionFragment newInstance(Note note) {
         NotesDescriptionFragment fragment = new NotesDescriptionFragment();
@@ -46,19 +54,35 @@ public class NotesDescriptionFragment extends Fragment {
         String[] descriptions = getResources().getStringArray(R.array.notes_description);
 // вывести нужное
         TextView nameView = view.findViewById(R.id.description_of_notes_name);
-        TextView dataView = view.findViewById(R.id.description_of_notes_date);
+        dataView = view.findViewById(R.id.description_of_notes_date);
         nameView.setTextSize(25);
         nameView.setTypeface(null, Typeface.BOLD);
         nameView.setText(note.getNoteName());
         descrView.setText(descriptions[note.getIndexDescription()]);
-        try{
-            //в альбоме работает, а портрете выбрасывает исключение. Интересно!
-            //FIXME
-            dataView.setText(note.getDate().toString());
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
-
+        dataView.setText(calendar.getTime().toString());
+        Button button = view.findViewById(R.id.buttonSetTime);
+        button.setOnClickListener(v -> {
+            setDate();
+        });
         return view;
+    }
+
+    DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            note.setDate(calendar.getTime());
+            //TODO сохранить время заметок?
+            dataView.setText(note.getDate().toString());
+        }
+    };
+
+    private void setDate() {
+        new DatePickerDialog(getContext(), dateListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
+                .show();
     }
 }
