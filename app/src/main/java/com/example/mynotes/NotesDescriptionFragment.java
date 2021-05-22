@@ -15,7 +15,8 @@ import android.widget.TextView;
 //этот фрагмент даёт подробную информацию о заметке
 public class NotesDescriptionFragment extends Fragment {
     public static final String ARG_INDEX = "index";
-    private int index;
+    public static final int DEFAULT_INDEX = 0;
+    private int index = DEFAULT_INDEX;
 
     //фабрика
     public static NotesDescriptionFragment newInstance(int index) {

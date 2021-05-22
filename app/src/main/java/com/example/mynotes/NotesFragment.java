@@ -22,6 +22,7 @@ import android.widget.TextView;
 public class NotesFragment extends Fragment {
     private boolean isLandscape;
     private int position = 0;
+    public static final String CURRENT_NOTE = "CorrentNote";
 
     // указываем макет
     @Override
@@ -58,7 +59,8 @@ public class NotesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // showPortrDetails(fi);
-                    showDetails(fi);
+                    position = fi;
+                    showDetails(position);
                 }
             });
         }
@@ -82,18 +84,26 @@ public class NotesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if(savedInstanceState != null){
+            position = savedInstanceState.getInt(CURRENT_NOTE, NotesDescriptionFragment.DEFAULT_INDEX);
+        }
         if (isLandscape) {
             showLandDetails(position);
         }
     }
 
-    // герб в портрете
     private void showPortrDetails(int index) {
         // откроем вторую activity
         Intent intent = new Intent();
         intent.setClass(getActivity(), DescriptionActivity.class);
         intent.putExtra(NotesDescriptionFragment.ARG_INDEX, index);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(CURRENT_NOTE, position);
+        super.onSaveInstanceState(outState);
     }
 }
 
