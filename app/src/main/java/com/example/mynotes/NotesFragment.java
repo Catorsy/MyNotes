@@ -9,8 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +16,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 //этот фрагмент создает список заметок
 public class NotesFragment extends Fragment {
     private boolean isLandscape;
-    private int position = 0;
-    public static final String CURRENT_NOTE = "CorrentNote";
+    //private int position = 0;
+    private Note currentNote;
+    public static final String CURRENT_NOTE = "CurrentNote";
 
     // указываем макет
     @Override
@@ -55,28 +57,24 @@ public class NotesFragment extends Fragment {
 
             //обработка нажатий
             final int fi = i;
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // showPortrDetails(fi);
-                    position = fi;
-                    showDetails(position);
-                }
+            textView.setOnClickListener(v -> {
+                currentNote = new Note(getResources().getStringArray(R.array.notes)[fi], fi, new Date());
+                showDetails(currentNote);
             });
         }
     }
 
-    private void showDetails(int index) {
+    private void showDetails(Note currentNote) {
         if (isLandscape) {
-            showLandDetails(index);
+            showLandDetails(currentNote);
         } else {
-            showPortrDetails(index);
+            showPortrDetails(currentNote);
         }
     }
 
-    private void showLandDetails(int index) {
+    private void showLandDetails(Note currentNote) {
         //создаем новый фрагмент
-        NotesDescriptionFragment detail = NotesDescriptionFragment.newInstance(index);
+        NotesDescriptionFragment detail = NotesDescriptionFragment.newInstance(currentNote);
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.description_of_notes, detail).commit();
     }
 
@@ -84,25 +82,27 @@ public class NotesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if(savedInstanceState != null){
-            position = savedInstanceState.getInt(CURRENT_NOTE, NotesDescriptionFragment.DEFAULT_INDEX);
+        if (savedInstanceState != null) {
+            currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
+        } else {
+            currentNote = new Note(getResources().getStringArray(R.array.notes)[NotesDescriptionFragment.DEFAULT_INDEX], NotesDescriptionFragment.DEFAULT_INDEX, new Date());
         }
         if (isLandscape) {
-            showLandDetails(position);
+            showLandDetails(currentNote);
         }
     }
 
-    private void showPortrDetails(int index) {
+    private void showPortrDetails(Note currentNote) {
         // откроем вторую activity
         Intent intent = new Intent();
         intent.setClass(getActivity(), DescriptionActivity.class);
-        intent.putExtra(NotesDescriptionFragment.ARG_INDEX, index);
+        intent.putExtra(NotesDescriptionFragment.ARG_NOTE, currentNote);
         startActivity(intent);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(CURRENT_NOTE, position);
+        outState.putParcelable(CURRENT_NOTE, currentNote);
         super.onSaveInstanceState(outState);
     }
 }
