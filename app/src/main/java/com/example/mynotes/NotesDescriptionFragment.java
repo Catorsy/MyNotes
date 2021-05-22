@@ -42,7 +42,7 @@ public class NotesDescriptionFragment extends Fragment {
 // получить из ресурсов имя/подробности/дату
         String [] notes = getResources().getStringArray(R.array.notes);
         String [] descriptions = getResources().getStringArray(R.array.notes_description);
-// задать нужное
+// вывести нужное
         TextView nameView = view.findViewById(R.id.description_of_notes_name);
         nameView.setTextSize(25);
         nameView.setTypeface(null, Typeface.BOLD);
