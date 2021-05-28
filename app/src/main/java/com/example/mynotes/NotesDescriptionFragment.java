@@ -55,8 +55,6 @@ public class NotesDescriptionFragment extends Fragment {
 // вывести нужное
         TextView nameView = view.findViewById(R.id.description_of_notes_name);
         dataView = view.findViewById(R.id.description_of_notes_date);
-        nameView.setTextSize(25);
-        nameView.setTypeface(null, Typeface.BOLD);
         nameView.setText(note.getNoteName());
         descrView.setText(descriptions[note.getIndexDescription()]);
         dataView.setText(calendar.getTime().toString());
