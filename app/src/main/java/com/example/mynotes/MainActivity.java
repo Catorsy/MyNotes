@@ -2,6 +2,7 @@ package com.example.mynotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
         //создаем там же MyViewHolder
 
         //передаем адаптер в ресайкл вью
-        RecyclerView recyclerView = findViewById(R.id.recycler);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         //мето ниже увеличит производительность: все элементы одного размера, не надо пересчитывать, сколько влезет на экран
-        //recyclerView.setHasFixedSize(true); //лучше так делать, если все комплименты одинакового размера
+        recyclerView.setHasFixedSize(true); //лучше так делать, если все комплименты одинакового размера
         //recyclerView.setAdapter(new MyAdapter(initList()));
         //что еще сделать, что все заработало? Менеджер надо! Сойдет самый простой, и дать ему контекст:
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
+        //LinearLayoutManager manager = new LinearLayoutManager(this);
+       // //GridLayoutManager manager = new GridLayoutManager(this, 2); //span - это колонки
+        //грид - хороший лайаут! располагает карточки в столбики.
+       //// recyclerView.setLayoutManager(manager); это открыть для грида
         //еще хотелось бы? чтобы не забыть менеджер, можно передать ему прямо в иксемеле, в активити_мейн
 
         //добавим декоратор! например, разделим элементы.
