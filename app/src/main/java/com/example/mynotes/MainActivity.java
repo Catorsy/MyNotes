@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,43 +26,26 @@ public class MainActivity extends AppCompatActivity {
         //передаем адаптер в ресайкл вью
         RecyclerView recyclerView = findViewById(R.id.recycler);
         //мето ниже увеличит производительность: все элементы одного размера, не надо пересчитывать, сколько влезет на экран
-        recyclerView.setHasFixedSize(true); //лучше так делать, если все комплименты одинакового размера
-        recyclerView.setAdapter(new MyAdapter(initList()));
+        //recyclerView.setHasFixedSize(true); //лучше так делать, если все комплименты одинакового размера
+        //recyclerView.setAdapter(new MyAdapter(initList()));
         //что еще сделать, что все заработало? Менеджер надо! Сойдет самый простой, и дать ему контекст:
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         //еще хотелось бы? чтобы не забыть менеджер, можно передать ему прямо в иксемеле, в активити_мейн
-    }
 
-    private List<String> initList(){
-        //из пяти элементов. Лучше его, конечно, не здесь создавать
-        List<String> list = new ArrayList<>(5);
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        //если их много, можем прокрутить на экране!
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        return list;
+        //инициализируем новый адаптер
+       // MyAdapter adapter = new MyAdapter(initList());
+        MyAdapter adapter = new MyAdapter(new CardSourseImp(getResources()).init());
+        recyclerView.setAdapter(adapter);
+
+        //а в итем добавляем кликабл тру!
+        adapter.setListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(MainActivity.this, "position " + position, Toast.LENGTH_SHORT).show();
+                Log.d("MainActivity", "position " + position);
+                //можно писать в лог, чтобы проверить работоспособность кода
+            }
+        });
     }
 }

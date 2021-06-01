@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,10 +21,12 @@ import java.util.List;
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     //задали ему шаблонный тип вью холдер, а потом сами его реализуем. Вьюхолдер знает про все вьюхи внутри элемента.
     private static final String TAG = "MyAdapter";
-    private List<String> data;
+   // private List<String> data;
+    private  CardSourse cardSourse;
+    private OnItemClickListener listener;
 
-    public MyAdapter(List<String> data) {
-        this.data = data;
+    public MyAdapter(CardSourse cardSourse) {
+        this.cardSourse = cardSourse;
         Log.d(TAG, "MyAdapter create");
     }
 
@@ -39,7 +43,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     //когда надо забиндить вью холдер
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(data.get(position));
+        //holder.bind(data.get(position));
+        holder.bind(cardSourse.getCard(position));
         Log.d(TAG, "onCreateViewHolder position = " + position);
        }
 
@@ -47,25 +52,83 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     //говорит, сколько элементов у нас сейчас в списке.
     @Override
     public int getItemCount() {
-        return data.size();
+        //return data.size();
+        return cardSourse.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
-        private final TextView textView;
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder{
+        //private final TextView textView;
+
+        private final TextView title;
+        private final TextView description;
+        private final ImageView image;
+        private final CheckBox like;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
-        }
-        
-        void bind(String text){
-            //textView.setText(text);
-            //getTextView().setText(text);
-            textView.setText(text);
+            //textView = itemView.findViewById(R.id.textView);
+
+            title = itemView.findViewById(R.id.text);
+            description = itemView.findViewById(R.id.description);
+            image = itemView.findViewById(R.id.image);
+            like = itemView.findViewById(R.id.likes);
         }
 
-        public TextView getTextView() {
-            return textView;
-            //return  itemView.findViewById(R.id.textView);
+        //хотим забиндить новшества
+//        void bind(String text){
+//            textView.setText(text);
+//            textView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (listener != null){
+//                       listener.onItemClick(getAdapterPosition());
+//                    }
+//                }
+//            });
+//        }
+
+
+        void bind(CardData data){
+            title.setText(data.getTitle());
+            description.setText(data.getDescription());
+            image.setImageResource(data.getPicture());
+            like.setChecked(data.isLike());
+
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        listener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
+
+        //адаптер готов, осталось все это передть в мейн активити
+
+//        void bind(CardData data){
+//            textView.setText(text);
+//            textView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (listener != null){
+//                        listener.onItemClick(getAdapterPosition());
+//                    }
+//                }
+//            });
+//        }
+
+//        public TextView getTextView() {
+//            return textView;
+//            //return  itemView.findViewById(R.id.textView);
+//        }
+    }
+
+    //для начала объявим интерфейс
+    interface  OnItemClickListener {
+        void onItemClick(int position);
     }
 }
