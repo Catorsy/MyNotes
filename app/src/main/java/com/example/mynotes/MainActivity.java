@@ -1,6 +1,7 @@
 package com.example.mynotes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         //еще хотелось бы? чтобы не забыть менеджер, можно передать ему прямо в иксемеле, в активити_мейн
+
+        //добавим декоратор! например, разделим элементы.
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.separator, null));
+        recyclerView.addItemDecoration(itemDecoration); //надо эдд, не сеи! потому что их может быть несколько
+
+
 
         //инициализируем новый адаптер
        // MyAdapter adapter = new MyAdapter(initList());
