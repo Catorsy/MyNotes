@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private void initeview() {
         Toolbar toolbar = initToolbar();
         initToolbar();
-        initDrawer(toolbar);
+        //initDrawer(toolbar); //обойдемся без шторки
+        //gggii
     }
 
     private void initDrawer(Toolbar toolbar) {
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.choose_settings:
             case R.id.action_settings:
-                Toast.makeText(MainActivity.this, "Настройки", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Настройки!!", Toast.LENGTH_SHORT).show();
                 //addFragment(new AboutAppFragment());
                 return true;
             case R.id.action_main:
