@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
-
+//прошлое ДЗ называется HW7_1, пулл реквест от него
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = initToolbar();
         initToolbar();
         //initDrawer(toolbar); //обойдемся без шторки
-        //gggii
     }
 
     private void initDrawer(Toolbar toolbar) {
