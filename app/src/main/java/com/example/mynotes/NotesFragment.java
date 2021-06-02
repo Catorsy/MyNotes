@@ -85,7 +85,8 @@ public class NotesFragment extends Fragment {
         if (savedInstanceState != null) {
             currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
-            currentNote = new Note(getResources().getStringArray(R.array.notes)[NotesDescriptionFragment.DEFAULT_INDEX], NotesDescriptionFragment.DEFAULT_INDEX, new Date());
+            currentNote = new Note(getResources().getStringArray(R.array.notes)[NotesDescriptionFragment.DEFAULT_INDEX],
+                    NotesDescriptionFragment.DEFAULT_INDEX, new Date());
         }
         if (isLandscape) {
             showLandDetails(currentNote);
