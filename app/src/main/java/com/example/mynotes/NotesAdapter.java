@@ -60,7 +60,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         listener.onItemClick(v, getAdapterPosition());
                     }
                 }
@@ -69,7 +69,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onItemClick(v, getAdapterPosition());
                     }
                 }
@@ -78,9 +78,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
         public void bind(Note note) {
             title.setText(note.getNoteName());
-            try{
+            try {
                 description.setText(note.getIndexDescription());
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
             image.setImageResource(note.getPictureNumber());
