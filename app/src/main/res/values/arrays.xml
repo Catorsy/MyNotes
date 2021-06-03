@@ -13,4 +13,11 @@
         <item>Проклятый жирный китаец снова посягает на мои границы</item>
         <item>Купить у Ю шёлка оптом. Того красного и синего с цветами...</item>
     </string-array>
+
+    <array name="pictures">
+        <item>@drawable/castle</item>
+        <item>@drawable/law</item>
+        <item>@drawable/war</item>
+        <item>@drawable/silk</item>
+    </array>
 </resources>

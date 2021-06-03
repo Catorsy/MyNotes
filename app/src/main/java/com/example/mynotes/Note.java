@@ -9,7 +9,14 @@ import java.util.Date;
 public class Note implements Parcelable {
     private String noteName;
     private int indexDescription;
+    private int pictureNumber;
     Date date;
+
+    public Note(String noteName, int indexDescription, int pictureNumber) {
+        this.noteName = noteName;
+        this.indexDescription = indexDescription;
+        this.pictureNumber = pictureNumber;
+    }
 
     public Note(String noteName, int indexDescription, Date date) {
         this.noteName = noteName;
@@ -31,6 +38,10 @@ public class Note implements Parcelable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getPictureNumber() {
+        return pictureNumber;
     }
 
     protected Note(Parcel in) {
