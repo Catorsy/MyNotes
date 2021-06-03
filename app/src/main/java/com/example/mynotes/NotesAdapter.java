@@ -3,20 +3,19 @@ package com.example.mynotes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Date;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
     private static final String TAG = "NotesAdapter";
     private NotesSource notesSource;
     private OnItemClickListener listener;
     private Note currentNote;
+    private OnItemClickListener clickListener;
 
     //передаем в конструктор источник данных
     public NotesAdapter(NotesSource notesSource) {
@@ -49,19 +48,29 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         private final TextView title;
         private final TextView description;
         private final ImageView image;
+        private final CardView cardView;
 
         public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.card_view);
             title = itemView.findViewById(R.id.item_title);
             description = itemView.findViewById(R.id.item_description);
             image = itemView.findViewById(R.id.item_image);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        listener.onItemClick(v, getAdapterPosition());
+                    }
+                }
+            });
 
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null){
-                        listener.onItemClick(getAdapterPosition());
-
+                        listener.onItemClick(v, getAdapterPosition());
                     }
                 }
             });
@@ -71,7 +80,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             title.setText(note.getNoteName());
             try{
                 description.setText(note.getIndexDescription());
-
             }catch (NullPointerException e){
                 e.printStackTrace();
             }
@@ -79,7 +87,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         }
     }
 
-    interface  OnItemClickListener {
-        void onItemClick(int position);
+    interface OnItemClickListener {
+        void onItemClick(View v, int position);
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

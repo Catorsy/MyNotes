@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,14 +32,23 @@ public class NotesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
+
+        //data
+        NotesSource myNote = new NotesSourceImp(getResources()).init();
+
         //передаем адаптер в ресайкл вью
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         //экономия производительности
         recyclerView.setHasFixedSize(true);
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        //recyclerView.setLayoutManager(layoutManager);
         NotesAdapter adapter = new NotesAdapter(new NotesSourceImp(getResources()).init());
         recyclerView.setAdapter(adapter);
+        adapter.setListener(new NotesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                currentNote = myNote.getNote(position);
+                        showDetails(currentNote);
+            }
+        });
         return  view;
     }
 
