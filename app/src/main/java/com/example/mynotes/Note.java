@@ -31,6 +31,7 @@ public class Note implements Parcelable {
         this.date = date;
     }
 
+
     public Note(String noteName, Date date, String description) {
         this.noteName = noteName;
         this.date = date;
@@ -68,6 +69,7 @@ public class Note implements Parcelable {
     protected Note(Parcel in) {
         noteName = in.readString();
         indexDescription = in.readInt();
+        description = in.readString();
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -91,5 +93,6 @@ public class Note implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(noteName);
         dest.writeInt(indexDescription);
+        dest.writeString(description);
     }
 }

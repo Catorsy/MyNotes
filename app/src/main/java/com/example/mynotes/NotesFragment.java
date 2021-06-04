@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -139,7 +141,8 @@ public class NotesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                data.addNoteData(new Note("Заметка " + data.size(), R.drawable.dragon, "Моя новая заметка " + data.size()));
+                data.addNoteData(new Note("Заметка " + data.size(), R.drawable.dragon,
+                        "Моя новая заметка " + data.size()));
                 adapter.notifyItemInserted(data.size() - 1);
                 recyclerView.smoothScrollToPosition(data.size() - 1);
                 return true;
@@ -150,6 +153,39 @@ public class NotesFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = requireActivity().getMenuInflater();
+        inflater.inflate(R.menu.note_menu, menu);
+    }
+
+    //обработка кликов
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position = adapter.getMenuPosition();
+        switch (item.getItemId()){
+            case R.id.action_update:
+                data.updateNoteData(position, new Note("Заметка " + data.size(), R.drawable.dragon,
+                        "Моя новая заметка " + data.size()));
+                adapter.notifyItemChanged(position);
+                return true;
+
+            case R.id.action_delete:
+                data.deleteNoteData(position);
+                adapter.notifyItemRemoved(position);
+                return true;
+
+            case R.id.action_move:
+                if (data.moveCard(position)){
+                    data.moveCard(position);
+                    adapter.notifyItemMoved(position, position + 1);
+                    return true;
+                }
+        }
+        return super.onContextItemSelected(item);
     }
 }
 

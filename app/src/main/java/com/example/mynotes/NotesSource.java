@@ -7,4 +7,5 @@ public interface NotesSource {
     void updateNoteData (int position, Note note);
     int addNoteData (Note note);
     void clearNoteData();
+    boolean moveCard(int position);
 }

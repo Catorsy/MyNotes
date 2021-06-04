@@ -74,4 +74,14 @@ public class NotesSourceImp implements NotesSource{
     public void clearNoteData() {
         list.clear();
     }
+
+    @Override
+    public boolean moveCard(int position) {
+        if (position < list.size()-1) {
+            Note data = list.remove(position);
+            list.add(position + 1, data);
+            return true;
+        }
+        return false;
+    }
 }

@@ -19,6 +19,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     private OnItemClickListener clickListener;
 
     private Fragment fragment;
+    private int menuPosition;
+
+    public int getMenuPosition() {
+        return menuPosition;
+    }
 
     public NotesAdapter(NotesSource notesSource, Fragment fragment) {
         this.notesSource = notesSource;
@@ -65,12 +70,26 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             description = itemView.findViewById(R.id.item_description);
             image = itemView.findViewById(R.id.item_image);
 
+            if (fragment != null){
+                fragment.registerForContextMenu(itemView);
+            }
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
                         listener.onItemClick(v, getAdapterPosition());
                     }
+                }
+            });
+
+            //короткий клик занят, повесим на долгий
+            image.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    menuPosition = getLayoutPosition();
+                    v.showContextMenu(); //10 10 пробовали задать
+                    return true;
                 }
             });
 
@@ -87,8 +106,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public void bind(Note note) {
             title.setText(note.getNoteName());
             try {
-                //description.setText(note.getDescription());
-                description.setText(note.getIndexDescription());
+                description.setText(note.getDescription());
+                //description.setText(note.getIndexDescription());
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
