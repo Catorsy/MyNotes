@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Date;
 
+import jp.wasabeef.recyclerview.animators.OvershootInRightAnimator;
+
 //этот фрагмент создает список заметок
 public class NotesFragment extends Fragment {
     private boolean isLandscape;
@@ -44,6 +46,8 @@ public class NotesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setItemAnimator(new OvershootInRightAnimator());
 
         adapter = new NotesAdapter(data, this);
         recyclerView.setAdapter(adapter);
