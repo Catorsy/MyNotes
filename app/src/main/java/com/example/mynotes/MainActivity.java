@@ -23,11 +23,16 @@ import java.util.List;
 //прошлое ДЗ называется HW7_1, пулл реквест от него
 public class MainActivity extends AppCompatActivity {
 
+    private  Navigation navigation;
+    private Publisher publisher = new Publisher();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        navigation = new Navigation(getSupportFragmentManager());
         initeview();
+        getNavigation().addFragment(NotesFragment.newInstance(), false);
     }
 
     private void initeview() {
@@ -64,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); //назначили  бар
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         return toolbar;
     }
 
@@ -121,14 +128,28 @@ public class MainActivity extends AppCompatActivity {
 
     //добавляем заданный фрагмент во фрагмент менеджер
     private void addFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        Fragment fragmentToRemove = getVisibleFragment(fragmentManager);
-        if (fragmentToRemove != null) {
-            transaction.remove(fragmentToRemove);
-        }
-        transaction.add(R.id.fragment_container, fragment);
-        transaction.commit();
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+       // FragmentTransaction transaction = fragmentManager.beginTransaction();
+       // Fragment fragmentToRemove = getVisibleFragment(fragmentManager);
+       // if (fragmentToRemove != null) {
+       //     transaction.remove(fragmentToRemove);
+       // }
+        //transaction.add(R.id.fragment_container, fragment);
+        //transaction.commit();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
     }
 
     private Fragment getVisibleFragment(FragmentManager fragmentManager) {

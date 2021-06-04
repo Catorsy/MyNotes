@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class NotesSourceImp implements NotesSource{
@@ -21,7 +22,9 @@ public class NotesSourceImp implements NotesSource{
         int [] image = getImageArray();
 
         for (int i = 0; i < titles.length; i++) {
-            list.add(new Note(titles[i], description[i], image[i]));
+           // list.add(new Note(titles[i], description[i], image[i]));
+            list.add(new Note(titles[i], description[i], image[i],
+                    Calendar.getInstance().getTime()));
         }
         return this;
     }

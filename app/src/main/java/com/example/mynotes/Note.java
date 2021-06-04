@@ -38,6 +38,32 @@ public class Note implements Parcelable {
         this.description = description;
     }
 
+    public Note(String noteName, int indexDescription, int pictureNumber, Date date) {
+        this.noteName = noteName;
+        this.indexDescription = indexDescription;
+        this.pictureNumber = pictureNumber;
+        this.date = date;
+    }
+
+    public Note(String noteName, int pictureNumber, Date date, String description) {
+        this.noteName = noteName;
+        this.pictureNumber = pictureNumber;
+        this.date = date;
+        this.description = description;
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
+
     public String getDescription() {
         return description;
     }
@@ -70,19 +96,9 @@ public class Note implements Parcelable {
         noteName = in.readString();
         indexDescription = in.readInt();
         description = in.readString();
+        date = new Date(in.readLong());
+        pictureNumber = in.readInt();
     }
-
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -93,6 +109,8 @@ public class Note implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(noteName);
         dest.writeInt(indexDescription);
+        dest.writeInt(pictureNumber);
         dest.writeString(description);
+        dest.writeLong(date.getTime());
     }
 }

@@ -11,6 +11,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
     private static final String TAG = "NotesAdapter";
     private NotesSource notesSource;
@@ -62,6 +64,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         private final TextView description;
         private final ImageView image;
         private final CardView cardView;
+        private  TextView date;
 
         public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,10 +72,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             title = itemView.findViewById(R.id.item_title);
             description = itemView.findViewById(R.id.item_description);
             image = itemView.findViewById(R.id.item_image);
+            date = itemView.findViewById(R.id.date);
 
             if (fragment != null){
                 fragment.registerForContextMenu(itemView);
             }
+
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,6 +117,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
                 e.printStackTrace();
             }
             image.setImageResource(note.getPictureNumber());
+            date.setText(new SimpleDateFormat("dd-MM-yy").format(note.getDate()));
         }
     }
 

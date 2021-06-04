@@ -1,5 +1,6 @@
 package com.example.mynotes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -33,6 +34,21 @@ public class NotesFragment extends Fragment {
     private NotesSource data;
     private NotesAdapter adapter;
 
+    private Navigation navigation;
+    private Publisher publisher;
+    private boolean moveToLastPosition;
+
+    public static NotesFragment newInstance() {
+        return new NotesFragment();
+    }
+
+    //получим источник данных для списка
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        data = new NotesSourceImp(getResources()).init();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,7 +56,7 @@ public class NotesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        data = new NotesSourceImp(getResources()).init();
+        //data = new NotesSourceImp(getResources()).init();
         setHasOptionsMenu(true);
 
         recyclerView.setHasFixedSize(true);
@@ -48,6 +64,11 @@ public class NotesFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setItemAnimator(new OvershootInRightAnimator());
+
+        if (moveToLastPosition){
+            recyclerView.smoothScrollToPosition(data.size() - 1);
+            moveToLastPosition = false;
+        }
 
         adapter = new NotesAdapter(data, this);
         recyclerView.setAdapter(adapter);
@@ -145,10 +166,15 @@ public class NotesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                data.addNoteData(new Note("Заметка " + data.size(), R.drawable.dragon,
-                        "Моя новая заметка " + data.size()));
-                adapter.notifyItemInserted(data.size() - 1);
-                recyclerView.smoothScrollToPosition(data.size() - 1);
+               navigation.addFragment(NoteCardFragment.newInstance(), true);
+               publisher.subscribe(new Observer() {
+                   @Override
+                   public void updateNoteData(Note note) {
+                       data.addNoteData(note);
+                           adapter.notifyItemInserted(data.size() - 1);
+                           moveToLastPosition = true;
+                       }
+               });
                 return true;
 
             case R.id.action_clear:
@@ -172,9 +198,14 @@ public class NotesFragment extends Fragment {
         int position = adapter.getMenuPosition();
         switch (item.getItemId()){
             case R.id.action_update:
-                data.updateNoteData(position, new Note("Заметка " + data.size(), R.drawable.dragon,
-                        "Моя новая заметка " + data.size()));
-                adapter.notifyItemChanged(position);
+                navigation.addFragment(NoteCardFragment.newInstance(data.getNote(position)), true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateNoteData(Note note) {
+                        data.updateNoteData(position, note);
+                        adapter.notifyItemChanged(position);
+                    }
+                });
                 return true;
 
             case R.id.action_delete:
@@ -190,6 +221,21 @@ public class NotesFragment extends Fragment {
                 }
         }
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        MainActivity activity = (MainActivity)context;
+        navigation = activity.getNavigation();
+        publisher = activity.getPublisher();
+    }
+
+    @Override
+    public void onDetach() {
+        navigation = null;
+        publisher = null;
+        super.onDetach();
     }
 }
 
