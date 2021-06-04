@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
@@ -16,6 +17,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     private OnItemClickListener listener;
     private Note currentNote;
     private OnItemClickListener clickListener;
+
+    private Fragment fragment;
+
+    public NotesAdapter(NotesSource notesSource, Fragment fragment) {
+        this.notesSource = notesSource;
+        this.fragment = fragment;
+    }
 
     //передаем в конструктор источник данных
     public NotesAdapter(NotesSource notesSource) {
@@ -79,6 +87,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public void bind(Note note) {
             title.setText(note.getNoteName());
             try {
+                //description.setText(note.getDescription());
                 description.setText(note.getIndexDescription());
             } catch (NullPointerException e) {
                 e.printStackTrace();

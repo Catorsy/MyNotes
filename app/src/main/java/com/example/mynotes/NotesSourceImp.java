@@ -53,4 +53,25 @@ public class NotesSourceImp implements NotesSource{
     public int size() {
         return list.size();
     }
+
+    @Override
+    public void deleteNoteData(int position) {
+        list.remove(position);
+    }
+
+    @Override
+    public void updateNoteData(int position, Note note) {
+        list.set(position, note);
+    }
+
+    @Override
+    public int addNoteData(Note note) {
+        list.add(note);
+        return list.lastIndexOf(note);
+    }
+
+    @Override
+    public void clearNoteData() {
+        list.clear();
+    }
 }

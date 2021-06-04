@@ -11,4 +11,6 @@
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
     <string name="fragment_navigation">Меню шторки</string>
+    <string name="clear">Очистить</string>
+    <string name="add_card">Добавить</string>
 </resources>

@@ -11,6 +11,13 @@ public class Note implements Parcelable {
     private int indexDescription;
     private int pictureNumber;
     Date date;
+    private String description;
+
+    public Note(String noteName, int pictureNumber, String description) {
+        this.noteName = noteName;
+        this.pictureNumber = pictureNumber;
+        this.description = description;
+    }
 
     public Note(String noteName, int indexDescription, int pictureNumber) {
         this.noteName = noteName;
@@ -22,6 +29,20 @@ public class Note implements Parcelable {
         this.noteName = noteName;
         this.indexDescription = indexDescription;
         this.date = date;
+    }
+
+    public Note(String noteName, Date date, String description) {
+        this.noteName = noteName;
+        this.date = date;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getNoteName() {
