@@ -88,7 +88,7 @@ public class NotesFragment extends Fragment {
     // создаём список заметок
     private void initList(View view) {
         LinearLayout layoutView = (LinearLayout) view;
-        String[] notes = getResources().getStringArray(R.array.notes);
+        String[] notes = getResources().getStringArray(R.array.notes_my_favourite);
 
         //работаем с нотс и айтемс, доостаем элементы из айтема
         LayoutInflater layoutInflater = getLayoutInflater();
@@ -106,7 +106,7 @@ public class NotesFragment extends Fragment {
             //обработка нажатий
             final int fi = i;
             title.setOnClickListener(v -> {
-                currentNote = new Note(getResources().getStringArray(R.array.notes)[fi], new Date(),
+                currentNote = new Note(getResources().getStringArray(R.array.notes_my_favourite)[fi], new Date(),
                         getResources().getStringArray(R.array.notes_description)[fi]);
                 showDetails(currentNote);
             });
@@ -134,7 +134,7 @@ public class NotesFragment extends Fragment {
         if (savedInstanceState != null) {
             currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
-            currentNote = new Note(getResources().getStringArray(R.array.notes)[NotesDescriptionFragment.DEFAULT_INDEX],
+            currentNote = new Note(getResources().getStringArray(R.array.notes_my_favourite)[NotesDescriptionFragment.DEFAULT_INDEX],
                     NotesDescriptionFragment.DEFAULT_INDEX, new Date());
         }
         if (isLandscape) {
@@ -172,6 +172,7 @@ public class NotesFragment extends Fragment {
                 publisher.subscribe(new Observer() {
                     @Override
                     public void updateNoteData(Note note) {
+                        //note = new Note(); это если хотим совсем "голую" заметку
                         data.addNoteData(note);
                         adapter.notifyItemInserted(data.size() - 1);
                         moveToLastPosition = true;

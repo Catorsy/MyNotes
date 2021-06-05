@@ -52,10 +52,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     //класс хранит связь между данными и элементами View
     public class NotesViewHolder extends RecyclerView.ViewHolder {
-        private final TextView title;
-        private final TextView description;
-        private final ImageView image;
-        private final CardView cardView;
+        private TextView title;
+        private TextView description;
+        private ImageView image;
+        private CardView cardView;
         private TextView date;
 
         public NotesViewHolder(@NonNull View itemView) {
@@ -99,6 +99,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public void bind(Note note) {
             title.setText(note.getNoteName());
             try {
+                description.setText("fff!");
                 description.setText(note.getDescription());
                 //description.setText(note.getIndexDescription());
             } catch (NullPointerException e) {

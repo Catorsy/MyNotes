@@ -17,13 +17,14 @@ public class NotesSourceImp implements NotesSource {
     }
 
     public NotesSourceImp init() {
-        String[] titles = resources.getStringArray(R.array.notes);
+        String[] titles = resources.getStringArray(R.array.notes_my_favourite);
+        String[] descriptions = resources.getStringArray(R.array.notes_description);
         int[] description = getDescriptionArray();
         int[] image = getImageArray();
 
         for (int i = 0; i < titles.length; i++) {
             // list.add(new Note(titles[i], description[i], image[i]));
-            list.add(new Note(titles[i], description[i], image[i],
+            list.add(new Note(titles[i], descriptions[i], image[i],
                     Calendar.getInstance().getTime()));
         }
         return this;

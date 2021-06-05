@@ -32,6 +32,13 @@ public class Note implements Parcelable {
         this.date = date;
     }
 
+    public Note(String titles, String description, int pictureNumber, Date date) {
+        this.noteName = titles;
+        this.description = description;
+        this.pictureNumber = pictureNumber;
+        this.date = date;
+    }
+
     public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
         public Note createFromParcel(Parcel in) {
@@ -46,10 +53,6 @@ public class Note implements Parcelable {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getNoteName() {

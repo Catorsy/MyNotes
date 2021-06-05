@@ -61,7 +61,7 @@ public class NotesDescriptionFragment extends Fragment {
         dataView = view.findViewById(R.id.description_of_notes_date);
         nameView.setText(note.getNoteName());
         descrView.setText(descriptions[note.getIndexDescription()]);
-        //descrView.setText(note.getDescription());
+        descrView.setText(note.getDescription());
         dataView.setText(calendar.getTime().toString());
         Button button = view.findViewById(R.id.buttonSetTime);
         button.setOnClickListener(v -> {
