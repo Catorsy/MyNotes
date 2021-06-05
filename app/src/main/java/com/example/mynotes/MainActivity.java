@@ -20,10 +20,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-//прошлое ДЗ называется HW7_1, пулл реквест от него
 public class MainActivity extends AppCompatActivity {
 
-    private  Navigation navigation;
+    private Navigation navigation;
     private Publisher publisher = new Publisher();
 
     @Override
@@ -108,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
         //строка "поиск"
         MenuItem search = menu.findItem(R.id.action_search);
         SearchView searchText = (SearchView) search.getActionView();
@@ -126,18 +126,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //добавляем заданный фрагмент во фрагмент менеджер
-    private void addFragment(Fragment fragment) {
-        //FragmentManager fragmentManager = getSupportFragmentManager();
-       // FragmentTransaction transaction = fragmentManager.beginTransaction();
-       // Fragment fragmentToRemove = getVisibleFragment(fragmentManager);
-       // if (fragmentToRemove != null) {
-       //     transaction.remove(fragmentToRemove);
-       // }
-        //transaction.add(R.id.fragment_container, fragment);
-        //transaction.commit();
-    }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -150,17 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
     public Publisher getPublisher() {
         return publisher;
-    }
-
-    private Fragment getVisibleFragment(FragmentManager fragmentManager) {
-        List<Fragment> fragments = fragmentManager.getFragments();
-        int countFragments = fragments.size();
-        for (int i = countFragments - 1; i >= 0; i--) {
-            Fragment fragment = fragments.get(i);
-            if (fragment.isVisible())
-                return fragment;
-        }
-        return null;
     }
 }
 

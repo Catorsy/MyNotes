@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class NotesSourceImp implements NotesSource{
+public class NotesSourceImp implements NotesSource {
     private List<Note> list;
     private Resources resources;
 
@@ -16,13 +16,13 @@ public class NotesSourceImp implements NotesSource{
         this.resources = resources;
     }
 
-    public  NotesSourceImp init(){
-        String [] titles = resources.getStringArray(R.array.notes);
-        int [] description = getDescriptionArray();
-        int [] image = getImageArray();
+    public NotesSourceImp init() {
+        String[] titles = resources.getStringArray(R.array.notes);
+        int[] description = getDescriptionArray();
+        int[] image = getImageArray();
 
         for (int i = 0; i < titles.length; i++) {
-           // list.add(new Note(titles[i], description[i], image[i]));
+            // list.add(new Note(titles[i], description[i], image[i]));
             list.add(new Note(titles[i], description[i], image[i],
                     Calendar.getInstance().getTime()));
         }
@@ -31,7 +31,7 @@ public class NotesSourceImp implements NotesSource{
 
     private int[] getDescriptionArray() {
         TypedArray array = resources.obtainTypedArray(R.array.notes_description);
-        int [] des = new int [array.length()];
+        int[] des = new int[array.length()];
         for (int i = 0; i < array.length(); i++) {
             des[i] = array.getResourceId(i, 0);
         }
@@ -40,7 +40,7 @@ public class NotesSourceImp implements NotesSource{
 
     private int[] getImageArray() {
         TypedArray array = resources.obtainTypedArray(R.array.pictures);
-        int [] images = new int [array.length()];
+        int[] images = new int[array.length()];
         for (int i = 0; i < array.length(); i++) {
             images[i] = array.getResourceId(i, 0);
         }
@@ -80,7 +80,7 @@ public class NotesSourceImp implements NotesSource{
 
     @Override
     public boolean moveCard(int position) {
-        if (position < list.size()-1) {
+        if (position < list.size() - 1) {
             Note data = list.remove(position);
             list.add(position + 1, data);
             return true;

@@ -14,11 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
-    private static final String TAG = "NotesAdapter";
     private NotesSource notesSource;
     private OnItemClickListener listener;
-    private Note currentNote;
-    private OnItemClickListener clickListener;
 
     private Fragment fragment;
     private int menuPosition;
@@ -30,11 +27,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     public NotesAdapter(NotesSource notesSource, Fragment fragment) {
         this.notesSource = notesSource;
         this.fragment = fragment;
-    }
-
-    //передаем в конструктор источник данных
-    public NotesAdapter(NotesSource notesSource) {
-        this.notesSource = notesSource;
     }
 
     //создаем новый элемент пользоватеьского интерфейса, запускается менеджером
@@ -64,7 +56,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         private final TextView description;
         private final ImageView image;
         private final CardView cardView;
-        private  TextView date;
+        private TextView date;
 
         public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,17 +66,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             image = itemView.findViewById(R.id.item_image);
             date = itemView.findViewById(R.id.date);
 
-            if (fragment != null){
+            if (fragment != null) {
                 fragment.registerForContextMenu(itemView);
             }
 
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onItemClick(v, getAdapterPosition());
-                    }
+            cardView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(v, getAdapterPosition());
                 }
             });
 

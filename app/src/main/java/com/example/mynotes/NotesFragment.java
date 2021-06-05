@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.Date;
 
 import jp.wasabeef.recyclerview.animators.OvershootInRightAnimator;
@@ -65,7 +67,7 @@ public class NotesFragment extends Fragment {
 
         recyclerView.setItemAnimator(new OvershootInRightAnimator());
 
-        if (moveToLastPosition){
+        if (moveToLastPosition) {
             recyclerView.smoothScrollToPosition(data.size() - 1);
             moveToLastPosition = false;
         }
@@ -164,17 +166,17 @@ public class NotesFragment extends Fragment {
     //переопределим клик
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_add:
-               navigation.addFragment(NoteCardFragment.newInstance(), true);
-               publisher.subscribe(new Observer() {
-                   @Override
-                   public void updateNoteData(Note note) {
-                       data.addNoteData(note);
-                           adapter.notifyItemInserted(data.size() - 1);
-                           moveToLastPosition = true;
-                       }
-               });
+                navigation.addFragment(NoteCardFragment.newInstance(), true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateNoteData(Note note) {
+                        data.addNoteData(note);
+                        adapter.notifyItemInserted(data.size() - 1);
+                        moveToLastPosition = true;
+                    }
+                });
                 return true;
 
             case R.id.action_clear:
@@ -196,7 +198,7 @@ public class NotesFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int position = adapter.getMenuPosition();
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_update:
                 navigation.addFragment(NoteCardFragment.newInstance(data.getNote(position)), true);
                 publisher.subscribe(new Observer() {
@@ -214,7 +216,7 @@ public class NotesFragment extends Fragment {
                 return true;
 
             case R.id.action_move:
-                if (data.moveCard(position)){
+                if (data.moveCard(position)) {
                     data.moveCard(position);
                     adapter.notifyItemMoved(position, position + 1);
                     return true;
@@ -226,7 +228,7 @@ public class NotesFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        MainActivity activity = (MainActivity)context;
+        MainActivity activity = (MainActivity) context;
         navigation = activity.getNavigation();
         publisher = activity.getPublisher();
     }

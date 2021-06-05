@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
@@ -29,8 +30,6 @@ public class NotesDescriptionFragment extends Fragment {
     public static final int DEFAULT_INDEX = 0;
     private int index = DEFAULT_INDEX;
     private Note note;
-    //попробуем календарь
-    private DatePicker datePicker;
     Calendar calendar = Calendar.getInstance();
     TextView dataView;
 
@@ -70,7 +69,6 @@ public class NotesDescriptionFragment extends Fragment {
         });
         return view;
     }
-
 
     DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

@@ -2,19 +2,23 @@ package com.example.mynotes;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+
 import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.Calendar;
 import java.util.Date;
 
 public class NoteCardFragment extends Fragment {
 
-    private static final String ARG_CARD_DATA= "Param_CardData";
+    private static final String ARG_CARD_DATA = "Param_CardData";
     private Note note;
     private Publisher publisher; //с его помощью обмениваемся даннными
 
@@ -65,8 +69,8 @@ public class NoteCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_card, container, false);
-        initView (view);
-        if (note != null){
+        initView(view);
+        if (note != null) {
             populateView();
         }
         return view;
@@ -88,7 +92,7 @@ public class NoteCardFragment extends Fragment {
             picture = note.getPictureNumber();
             description = note.getIndexDescription();
         } else {
-            picture = R.drawable.castle;
+            picture = R.drawable.dragon;
             description = 0;
         }
         return new Note(title, description, picture, date);
@@ -102,16 +106,16 @@ public class NoteCardFragment extends Fragment {
         return calendar.getTime();
     }
 
-    private void initView (View view) {
+    private void initView(View view) {
         title = view.findViewById(R.id.inputTitle);
         description = view.findViewById(R.id.inputDescription);
         datePicker = view.findViewById(R.id.inputDate);
     }
 
-    public void populateView () {
+    public void populateView() {
         title.setText(note.getNoteName());
         description.setText(note.getDescription());
-        initDatePicker (note.getDate());
+        initDatePicker(note.getDate());
     }
 
     private void initDatePicker(Date date) {
