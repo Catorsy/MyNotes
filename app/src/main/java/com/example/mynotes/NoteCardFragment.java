@@ -85,15 +85,13 @@ public class NoteCardFragment extends Fragment {
 
     private Note collectCardData() {
         String title = this.title.getText().toString();
-        int description;
+        String description = this.description.getText().toString();
         Date date = getDateFromDatePicker();
         int picture;
         if (note != null) {
             picture = note.getPictureNumber();
-            description = note.getIndexDescription();
         } else {
             picture = R.drawable.dragon;
-            description = 0;
         }
         return new Note(title, description, picture, date);
     }

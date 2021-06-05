@@ -67,7 +67,7 @@ public class NotesFragment extends Fragment {
 
         recyclerView.setItemAnimator(new OvershootInRightAnimator());
 
-        if (moveToLastPosition) {
+        if (moveToLastPosition && (data.size() >= 1)) {
             recyclerView.smoothScrollToPosition(data.size() - 1);
             moveToLastPosition = false;
         }
@@ -106,8 +106,8 @@ public class NotesFragment extends Fragment {
             //обработка нажатий
             final int fi = i;
             title.setOnClickListener(v -> {
-                currentNote = new Note(getResources().getStringArray(R.array.notes_my_favourite)[fi], new Date(),
-                        getResources().getStringArray(R.array.notes_description)[fi]);
+                currentNote = new Note(getResources().getStringArray(R.array.notes_my_favourite)[fi],
+                        getResources().getStringArray(R.array.notes_description)[fi], fi, new Date());
                 showDetails(currentNote);
             });
         }
@@ -135,6 +135,7 @@ public class NotesFragment extends Fragment {
             currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
             currentNote = new Note(getResources().getStringArray(R.array.notes_my_favourite)[NotesDescriptionFragment.DEFAULT_INDEX],
+                    getResources().getStringArray(R.array.notes_description)[NotesDescriptionFragment.DEFAULT_INDEX],
                     NotesDescriptionFragment.DEFAULT_INDEX, new Date());
         }
         if (isLandscape) {

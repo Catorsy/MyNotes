@@ -99,7 +99,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public void bind(Note note) {
             title.setText(note.getNoteName());
             try {
-                description.setText("fff!");
                 description.setText(note.getDescription());
                 //description.setText(note.getIndexDescription());
             } catch (NullPointerException e) {

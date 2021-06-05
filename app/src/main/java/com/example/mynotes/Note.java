@@ -8,32 +8,12 @@ import java.util.Date;
 
 public class Note implements Parcelable {
     private String noteName;
-    private int indexDescription;
     private int pictureNumber;
     Date date;
     private String description;
 
-    public Note(String noteName, int indexDescription, Date date) {
+    public Note(String noteName, String description, int pictureNumber, Date date) {
         this.noteName = noteName;
-        this.indexDescription = indexDescription;
-        this.date = date;
-    }
-
-    public Note(String noteName, Date date, String description) {
-        this.noteName = noteName;
-        this.date = date;
-        this.description = description;
-    }
-
-    public Note(String noteName, int indexDescription, int pictureNumber, Date date) {
-        this.noteName = noteName;
-        this.indexDescription = indexDescription;
-        this.pictureNumber = pictureNumber;
-        this.date = date;
-    }
-
-    public Note(String titles, String description, int pictureNumber, Date date) {
-        this.noteName = titles;
         this.description = description;
         this.pictureNumber = pictureNumber;
         this.date = date;
@@ -59,10 +39,6 @@ public class Note implements Parcelable {
         return noteName;
     }
 
-    public int getIndexDescription() {
-        return indexDescription;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -77,7 +53,6 @@ public class Note implements Parcelable {
 
     protected Note(Parcel in) {
         noteName = in.readString();
-        indexDescription = in.readInt();
         description = in.readString();
         date = new Date(in.readLong());
         pictureNumber = in.readInt();
@@ -91,7 +66,6 @@ public class Note implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(noteName);
-        dest.writeInt(indexDescription);
         dest.writeInt(pictureNumber);
         dest.writeString(description);
         dest.writeLong(date.getTime());

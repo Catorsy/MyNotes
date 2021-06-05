@@ -60,7 +60,8 @@ public class NotesDescriptionFragment extends Fragment {
         TextView nameView = view.findViewById(R.id.description_of_notes_name);
         dataView = view.findViewById(R.id.description_of_notes_date);
         nameView.setText(note.getNoteName());
-        descrView.setText(descriptions[note.getIndexDescription()]);
+        //descrView.setText(descriptions[note.getIndexDescription()]);
+        String a = note.getDescription();
         descrView.setText(note.getDescription());
         dataView.setText(calendar.getTime().toString());
         Button button = view.findViewById(R.id.buttonSetTime);
@@ -76,7 +77,6 @@ public class NotesDescriptionFragment extends Fragment {
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             note.setDate(calendar.getTime());
-            //TODO сохранить время заметок?
             dataView.setText(note.getDate().toString());
         }
     };
