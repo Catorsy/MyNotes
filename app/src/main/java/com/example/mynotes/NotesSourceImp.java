@@ -16,7 +16,8 @@ public class NotesSourceImp implements NotesSource {
         this.resources = resources;
     }
 
-    public NotesSourceImp init() {
+    @Override
+    public NotesSource init(NoteSoursceResponse noteSoursceResponse) {
         String[] titles = resources.getStringArray(R.array.notes_my_favourite);
         String[] descriptions = resources.getStringArray(R.array.notes_description);
         int[] description = getDescriptionArray();
@@ -26,6 +27,9 @@ public class NotesSourceImp implements NotesSource {
             // list.add(new Note(titles[i], description[i], image[i]));
             list.add(new Note(titles[i], descriptions[i], image[i],
                     Calendar.getInstance().getTime()));
+        }
+        if (noteSoursceResponse != null) {
+            noteSoursceResponse.initializated(this);
         }
         return this;
     }
