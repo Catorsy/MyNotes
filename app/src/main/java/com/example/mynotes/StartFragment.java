@@ -24,13 +24,13 @@ import com.google.android.material.button.MaterialButton;
 
 //код из методички
 public class StartFragment extends Fragment {
-    // Используется, чтобы определить результат activity регистрации через Google
+        // Используется, чтобы определить результат activity регистрации через Google
     private static final int RC_SIGN_IN = 40404;
     private static final String TAG = "GoogleAuth";
     private Navigation navigation;
-    // Клиент для регистрации пользователя через Google
+        // Клиент для регистрации пользователя через Google
     private GoogleSignInClient googleSignInClient;
-    // Кнопка регистрации через Google
+        // Кнопка регистрации через Google
     private com.google.android.gms.common.SignInButton buttonSignIn;
     private TextView emailView;
     private MaterialButton buttonSingOut; //кнопка выхода
@@ -44,7 +44,7 @@ public class StartFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-// Получим навигацию по приложению, чтобы перейти на фрагмент со списком заметок
+        // Получим навигацию по приложению, чтобы перейти на фрагмент со списком заметок
         MainActivity activity = (MainActivity) context;
         navigation = activity.getNavigation();
     }
@@ -65,21 +65,21 @@ public class StartFragment extends Fragment {
         return view;
     }
 
-    // Инициализация запроса на аутентификацию
+        // Инициализация запроса на аутентификацию
     private void initGoogleSign() {
-// Конфигурация запроса на регистрацию пользователя, чтобы получить идентификатор пользователя, его почту и основной профайл
-// (регулируется параметром)
+        // Конфигурация запроса на регистрацию пользователя, чтобы получить идентификатор пользователя, его почту и основной профайл
+        // (регулируется параметром)
         GoogleSignInOptions gso = new
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-// Получаем клиента для регистрации и данные по клиенту
+        // Получаем клиента для регистрации и данные по клиенту
         googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
     }
-    // Инициализация пользовательских элементов
+        // Инициализация пользовательских элементов
 
     private void initView(View view) {
-// Кнопка регистрации пользователя
+        // Кнопка регистрации пользователя
         buttonSignIn = view.findViewById(R.id.sign_in_button);
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -111,7 +111,7 @@ public class StartFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-// Проверим, входил ли пользователь в это приложение через Google
+        // Проверим, входил ли пользователь в это приложение через Google
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
     }
 
@@ -126,38 +126,38 @@ public class StartFragment extends Fragment {
                 });
     }
 
-    // Инициируем регистрацию пользователя
+        // Инициируем регистрацию пользователя
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    // Здесь получим ответ от системы, что пользователь вошёл
+        // Здесь получим ответ от системы, что пользователь вошёл
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable
             Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-// Когда сюда возвращается Task, результаты аутентификации уже готовы
+        // Когда сюда возвращается Task, результаты аутентификации уже готовы
             Task<GoogleSignInAccount> task =
                     GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
     }
 
-    //https://developers.google.com/identity/sign-in/android/backend-auth?authuser=1
-    // Получаем данные пользователя
+        //https://developers.google.com/identity/sign-in/android/backend-auth?authuser=1
+        // Получаем данные пользователя
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account =
                     completedTask.getResult(ApiException.class);
-// Регистрация прошла успешно
+        // Регистрация прошла успешно
             disableSign();
             updateUI(account.getEmail());
             //FIXME вот почему-то не считает регистрацию успешной и ловит исключение
         } catch (ApiException e) {
-// The ApiException status code indicates the detailed failure reason. Please refer to the GoogleSignInStatusCodes class
-// reference for more information.
+        // The ApiException status code indicates the detailed failure reason. Please refer to the GoogleSignInStatusCodes class
+        // reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }
