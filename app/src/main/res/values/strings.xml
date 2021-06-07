@@ -16,4 +16,6 @@
     <string name="move_card">Обновить</string>
     <string name="delete">Удалить</string>
     <string name="update_card">Заменить</string>
+    <string name="continue_">Продолжить</string>
+    <string name="sign_out">Выйти</string>
 </resources>

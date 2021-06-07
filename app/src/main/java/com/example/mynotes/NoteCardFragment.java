@@ -95,7 +95,7 @@ public class NoteCardFragment extends Fragment {
             return answer;
         } else {
             int pictureNumber = PictureIndexConverter.getPictureByIndex(PictureIndexConverter.randomPictureIndex());
-            return new Note (title, description, pictureNumber, date);
+            return new Note(title, description, pictureNumber, date);
         }
     }
 

@@ -27,7 +27,7 @@ public class PictureIndexConverter {
 
     public static int getIndexByPicture(int picture) {
         for (int i = 0; i < picIndex.length; i++) {
-            if (picIndex [i] == picture) {
+            if (picIndex[i] == picture) {
                 return i;
             }
         }

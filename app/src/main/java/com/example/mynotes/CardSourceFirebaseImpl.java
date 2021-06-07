@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CardSourceFirebaseImpl implements  NotesSource {
+public class CardSourceFirebaseImpl implements NotesSource {
 
     public static final String NOTE_COLLECTION = "notes"; //надо разложить все по коллекциям, по "папочкам". Это ее имя.
     public static final String TAG = "CardSourceFirebaseImpl";
@@ -42,7 +42,7 @@ public class CardSourceFirebaseImpl implements  NotesSource {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     notesData.clear();
-                    for (QueryDocumentSnapshot document: task.getResult()){ //Snapshot - часть коллекции
+                    for (QueryDocumentSnapshot document : task.getResult()) { //Snapshot - часть коллекции
                         Map<String, Object> doc = document.getData(); //достали документ
                         Note note = NoteDataMapping.toNoteData(document.getId(), doc);
                         notesData.add(note);
@@ -80,7 +80,7 @@ public class CardSourceFirebaseImpl implements  NotesSource {
     public void updateNoteData(int position, Note note) {
         try {
             collection.document(note.getId()).set(NoteDataMapping.toDocument(note)); //по айдишнику назвначаем новые поля
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -90,15 +90,15 @@ public class CardSourceFirebaseImpl implements  NotesSource {
         collection.add(NoteDataMapping.toDocument(note)).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override //проверим, успешно ли
             public void onSuccess(DocumentReference documentReference) {
-                 note.setId(documentReference.getId());
+                note.setId(documentReference.getId());
             }
         });
     }
 
     @Override
     public void clearNoteData() {
-        for (Note note: notesData) {
-        collection.document(note.getId()).delete(); //все сразу удалить, к сожалению, нельзя
+        for (Note note : notesData) {
+            collection.document(note.getId()).delete(); //все сразу удалить, к сожалению, нельзя
         }
         notesData.clear();
     }

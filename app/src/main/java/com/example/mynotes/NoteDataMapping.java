@@ -14,11 +14,12 @@ public class NoteDataMapping {
         public static final String DESCRIPTION = "description";
         public final static String DATE = "date";
     }
+
     public static Note toNoteData(String id, Map<String, Object> doc) {
         long indexPic = (long) doc.get(Fields.PICTURENUMBER);
-        Timestamp timeStamp = (Timestamp)doc.get(Fields.DATE); //Timestamp - время в миллисекундах от 1янв 1970го года
+        Timestamp timeStamp = (Timestamp) doc.get(Fields.DATE); //Timestamp - время в миллисекундах от 1янв 1970го года
 
-        int pictureNumber = (int)PictureIndexConverter.getPictureByIndex((int) indexPic);
+        int pictureNumber = (int) PictureIndexConverter.getPictureByIndex((int) indexPic);
         String description = (String) doc.get(Fields.DESCRIPTION);
         String noteName = (String) doc.get(Fields.NOTENAME);
         Date date = timeStamp.toDate();
@@ -28,7 +29,7 @@ public class NoteDataMapping {
         return noteData;
     }
 
-    public static Map<String, Object> toDocument (Note note){
+    public static Map<String, Object> toDocument(Note note) {
         Map<String, Object> doc = new HashMap<>();
         doc.put(Fields.NOTENAME, note.getNoteName());
         doc.put(Fields.DESCRIPTION, note.getDescription());

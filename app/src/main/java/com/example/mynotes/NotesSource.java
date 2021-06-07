@@ -1,6 +1,7 @@
 package com.example.mynotes;
 
 public interface NotesSource {
+
     Note getNote(int position);
     NotesSource init (NoteSoursceResponse noteSoursceResponse); //обмен данными с базой
     int size();
@@ -9,4 +10,5 @@ public interface NotesSource {
     void addNoteData (Note note);
     void clearNoteData();
     void updateFromBase(NoteSoursceResponse noteSoursceResponse);
+
 }

@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         navigation = new Navigation(getSupportFragmentManager());
         initeview();
-        getNavigation().addFragment(NotesFragment.newInstance(), false);
+        //getNavigation().addFragment(NotesFragment.newInstance(), false); это если отим без гугл-аутентификации
+        getNavigation().addFragment(StartFragment.newInstance(), false); //это если с
     }
 
     private void initeview() {

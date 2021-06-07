@@ -227,7 +227,7 @@ public class NotesFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                     }
                 });
-            }
+        }
         return true;
     }
 
