@@ -44,12 +44,6 @@ public class NotesFragment extends Fragment {
         return new NotesFragment();
     }
 
-    //получим источник данных для списка
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        data = new NotesSourceImp(getResources()).init();
-    }
 
     @Nullable
     @Override
@@ -58,7 +52,7 @@ public class NotesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        //data = new NotesSourceImp(getResources()).init();
+
         setHasOptionsMenu(true);
 
         recyclerView.setHasFixedSize(true);
@@ -72,7 +66,7 @@ public class NotesFragment extends Fragment {
             moveToLastPosition = false;
         }
 
-        adapter = new NotesAdapter(data, this);
+        adapter = new NotesAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setListener(new NotesAdapter.OnItemClickListener() {
             @Override
@@ -81,6 +75,15 @@ public class NotesFragment extends Fragment {
                 showDetails(currentNote);
             }
         });
+
+        data = new CardSourceFirebaseImpl().init(new NoteSoursceResponse() {
+            @Override
+            public void initializated(NotesSource notesSource) {
+                adapter.notifyDataSetChanged(); //после того, как данные с сервера пришли, надо сказать адаптеру
+            }
+        });
+        //здесь добавляем данные
+        adapter.setNoteSource(data);
         return view;
     }
 

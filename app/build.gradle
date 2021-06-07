@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.mynotes.stydygb"
+        applicationId "com.example.mynotes"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

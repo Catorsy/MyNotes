@@ -6,7 +6,7 @@ public interface NotesSource {
     int size();
     void deleteNoteData (int position);
     void updateNoteData (int position, Note note);
-    int addNoteData (Note note);
+    void addNoteData (Note note);
     void clearNoteData();
     boolean moveCard(int position);
 }

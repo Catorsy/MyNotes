@@ -24,9 +24,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return menuPosition;
     }
 
-    public NotesAdapter(NotesSource notesSource, Fragment fragment) {
-        this.notesSource = notesSource;
+    public NotesAdapter(Fragment fragment) { //сразу данные сюда передавать мы не будем
         this.fragment = fragment;
+    }
+
+    public void setNoteSource (NotesSource notesSource) {
+        this.notesSource = notesSource;
+        notifyDataSetChanged();
     }
 
     //создаем новый элемент пользоватеьского интерфейса, запускается менеджером
@@ -47,7 +51,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     @Override
     public int getItemCount() {
-        return notesSource.size();
+        try {
+            return notesSource.size();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     //класс хранит связь между данными и элементами View

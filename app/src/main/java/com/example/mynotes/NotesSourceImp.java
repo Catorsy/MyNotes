@@ -73,9 +73,8 @@ public class NotesSourceImp implements NotesSource {
     }
 
     @Override
-    public int addNoteData(Note note) {
+    public void addNoteData(Note note) {
         list.add(note);
-        return list.lastIndexOf(note);
     }
 
     @Override
