@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MyNotes</string>
+    <string name="title">Заголовок</string>
+    <string name="message">Да-да, тревожная!</string>
+    <string name="ok">Я понял</string>
 </resources>
