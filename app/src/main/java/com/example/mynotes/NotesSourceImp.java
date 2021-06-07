@@ -83,12 +83,7 @@ public class NotesSourceImp implements NotesSource {
     }
 
     @Override
-    public boolean moveCard(int position) {
-        if (position < list.size() - 1) {
-            Note data = list.remove(position);
-            list.add(position + 1, data);
-            return true;
-        }
-        return false;
+    public void updateFromBase(NoteSoursceResponse noteSoursceResponse) {
+        //
     }
 }

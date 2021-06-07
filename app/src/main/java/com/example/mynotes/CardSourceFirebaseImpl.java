@@ -104,7 +104,7 @@ public class CardSourceFirebaseImpl implements  NotesSource {
     }
 
     @Override //для БД move сложно реализуется
-    public boolean moveCard(int position) {
-        return false;
+    public void updateFromBase(NoteSoursceResponse noteSoursceResponse) {
+        init(noteSoursceResponse);
     }
 }

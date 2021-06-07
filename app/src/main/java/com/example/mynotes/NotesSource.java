@@ -8,5 +8,5 @@ public interface NotesSource {
     void updateNoteData (int position, Note note);
     void addNoteData (Note note);
     void clearNoteData();
-    boolean moveCard(int position);
+    void updateFromBase(NoteSoursceResponse noteSoursceResponse);
 }

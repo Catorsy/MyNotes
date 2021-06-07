@@ -220,14 +220,15 @@ public class NotesFragment extends Fragment {
                 adapter.notifyItemRemoved(position);
                 return true;
 
-            case R.id.action_move:
-                if (data.moveCard(position)) {
-                    data.moveCard(position);
-                    adapter.notifyItemMoved(position, position + 1);
-                    return true;
-                }
-        }
-        return super.onContextItemSelected(item);
+            case R.id.action_update_from_db:
+                data.updateFromBase(new NoteSoursceResponse() {
+                    @Override
+                    public void initializated(NotesSource notesSource) {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        return true;
     }
 
     @Override
