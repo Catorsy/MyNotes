@@ -159,6 +159,22 @@ public class MainActivity extends AppCompatActivity {
             new DialogCustomFragment().show(getSupportFragmentManager(), "transactionTag");
         });
 
+        findViewById(R.id.buttonSheetDialog).setOnClickListener(v -> {
+            new MyButtomSheetDialogFragment()
+                    .setListener(new MyButtomSheetDialogFragment.OnDialogListener() {
+                        @Override
+                        public void onDialogOk() {
+                            Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onDialogYes() {
+                            Toast.makeText(MainActivity.this, "YES", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show(getSupportFragmentManager(), "transactionTag");
+        });
+
     }
 
             //сюда будем передавать результаты наших диалогов
