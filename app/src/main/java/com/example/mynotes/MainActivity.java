@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -127,6 +129,22 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         Toast.makeText(this, "Выбраны элементы: " + result, Toast.LENGTH_SHORT).show();
+                    })
+                    .show();
+        });
+
+        findViewById(R.id.alertDialogCustom).setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+            EditText editText = (EditText) getLayoutInflater().inflate(R.layout.custom_alert_dialog_layout, null);
+
+            builder.setTitle(R.string.title)
+                    .setView(editText) //можем передать либо реальную вью, которую сами создадим, либо получить ее из ресурсов, либо сами заинфлейтить
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(MainActivity.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .show();
         });
