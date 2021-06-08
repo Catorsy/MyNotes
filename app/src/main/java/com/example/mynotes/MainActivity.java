@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
             EditText editText = (EditText) getLayoutInflater().inflate(R.layout.custom_alert_dialog_layout, null);
+            //в рут надо поместить родительский контейнер, если он есть
 
             builder.setTitle(R.string.title)
                     .setView(editText) //можем передать либо реальную вью, которую сами создадим, либо получить ее из ресурсов, либо сами заинфлейтить
@@ -148,5 +149,20 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .show();
         });
+
+        //это настоящий фрагмент, предупреждение не исчезает при повороте
+        findViewById(R.id.DialogFragmentWithBuilder).setOnClickListener(v -> {
+            new DialogeBuilderFragment().show(getSupportFragmentManager(), "transactionTag");
+        });
+
+        findViewById(R.id.DialogFragmentWithCustomView).setOnClickListener(v -> {
+            new DialogCustomFragment().show(getSupportFragmentManager(), "transactionTag");
+        });
+
+    }
+
+            //сюда будем передавать результаты наших диалогов
+    public void onDialogeResult(String result){
+        Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
     }
 }

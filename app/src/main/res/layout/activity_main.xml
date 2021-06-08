@@ -44,4 +44,16 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <Button
+        android:id="@+id/DialogFragmentWithBuilder"
+        android:text="DialogFragmentWithBuilder"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Button
+        android:id="@+id/DialogFragmentWithCustomView"
+        android:text="DialogFragmentWithCustomView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 </LinearLayout>
