@@ -49,5 +49,21 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .show();
         });
+
+        findViewById(R.id.alertDialogList).setOnClickListener(v -> {
+
+            String [] items = {
+                 "Первый",
+                 "Второй",
+                 "Третий"
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.title)
+                    .setItems(items, (dialog, which) -> { //which - это элемент, в который был клик
+                        Toast.makeText(this, items[which], Toast.LENGTH_SHORT).show();
+                    })
+                    .show();
+        });
     }
 }
