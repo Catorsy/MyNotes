@@ -10,6 +10,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int chosen = -1; //значит, что никакой не выбран
+
+    private boolean [] checkedItems = {
+            //если мы хотим задать выбор заранее, пишем тут
+            false,
+            false,
+            false
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.alertDialogList).setOnClickListener(v -> {
-
             String [] items = {
                  "Первый",
                  "Второй",
@@ -60,8 +68,65 @@ public class MainActivity extends AppCompatActivity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(R.string.title)
-                    .setItems(items, (dialog, which) -> { //which - это элемент, в который был клик
+                    .setItems(items, (dialog, which) -> { //which - это элемент, в который был клик. setItems
+                        //позволяет выбрать пункт из списка
                         Toast.makeText(this, items[which], Toast.LENGTH_SHORT).show();
+                    })
+                    .show();
+        });
+
+        findViewById(R.id.alertDialogListSingleChoose).setOnClickListener(v -> {
+            String [] items = {
+                    "Первый",
+                    "Второй",
+                    "Третий"
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //тут будет радиобаттон
+            builder.setTitle(R.string.title)
+                    .setSingleChoiceItems(items, chosen, (dialog, which) -> {
+                        chosen = which;
+                    })
+                    .setNegativeButton("Отмена", (dialog, which) -> {
+                        Toast.makeText(this, "Отменили", Toast.LENGTH_SHORT).show();
+                    })
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        if (chosen == -1) {
+                            Toast.makeText(this, "Не выбран элемент", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(this, items[chosen], Toast.LENGTH_SHORT).show();
+                    })
+                    .show();
+        });
+
+        findViewById(R.id.alertDialogListMultyChoose).setOnClickListener(v -> {
+            String[] items = {
+                    "Первый",
+                    "Второй",
+                    "Третий"
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //тут будет радиобаттон
+            builder.setTitle(R.string.title)
+                    .setMultiChoiceItems(items, checkedItems, (dialog, which, isChecked) -> { //надо передать уже не номер, а массив выбранных
+                        //возвращает, какой элемент выбран и какое у него состояние
+                        checkedItems[which] = isChecked;
+                       // dialog.cancel(); отмена на выбор элемента
+                    })
+                    .setNegativeButton("Отмена", (dialog, which) -> {
+                        Toast.makeText(this, "Отменили", Toast.LENGTH_SHORT).show();
+                    })
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        StringBuilder result = new StringBuilder();
+                        //String result = "";
+                        for (int i = 0; i < checkedItems.length; i++) {
+                            if (checkedItems[i]) { //значит, элемент выбран
+                                result.append(items[i]).append(";");
+                                //result += items[which] + ";" ;
+                            }
+                        }
+                        Toast.makeText(this, "Выбраны элементы: " + result, Toast.LENGTH_SHORT).show();
                     })
                     .show();
         });

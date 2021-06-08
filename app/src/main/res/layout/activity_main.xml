@@ -26,4 +26,16 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <Button
+        android:id="@+id/alertDialogListSingleChoose"
+        android:text="AlertDialog with list one choose"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Button
+        android:id="@+id/alertDialogListMultyChoose"
+        android:text="AlertDialog with list with multi choose"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 </LinearLayout>
