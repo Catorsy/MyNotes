@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="notes">
+    <string-array name="notes_my_favourite">
         <item>Построить новый дворец</item>
         <item>Ввести новые законы</item>
         <item>Захватить страну проклятого Ю</item>

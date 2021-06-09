@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
@@ -29,8 +30,6 @@ public class NotesDescriptionFragment extends Fragment {
     public static final int DEFAULT_INDEX = 0;
     private int index = DEFAULT_INDEX;
     private Note note;
-    //попробуем календарь
-    private DatePicker datePicker;
     Calendar calendar = Calendar.getInstance();
     TextView dataView;
 
@@ -61,7 +60,9 @@ public class NotesDescriptionFragment extends Fragment {
         TextView nameView = view.findViewById(R.id.description_of_notes_name);
         dataView = view.findViewById(R.id.description_of_notes_date);
         nameView.setText(note.getNoteName());
-        descrView.setText(descriptions[note.getIndexDescription()]);
+        //descrView.setText(descriptions[note.getIndexDescription()]);
+        String a = note.getDescription();
+        descrView.setText(note.getDescription());
         dataView.setText(calendar.getTime().toString());
         Button button = view.findViewById(R.id.buttonSetTime);
         button.setOnClickListener(v -> {
@@ -70,14 +71,12 @@ public class NotesDescriptionFragment extends Fragment {
         return view;
     }
 
-
     DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             note.setDate(calendar.getTime());
-            //TODO сохранить время заметок?
             dataView.setText(note.getDate().toString());
         }
     };
@@ -89,5 +88,4 @@ public class NotesDescriptionFragment extends Fragment {
                 calendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
-
 }

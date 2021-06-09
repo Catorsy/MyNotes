@@ -8,28 +8,35 @@ import java.util.Date;
 
 public class Note implements Parcelable {
     private String noteName;
-    private int indexDescription;
     private int pictureNumber;
     Date date;
+    private String description;
 
-    public Note(String noteName, int indexDescription, int pictureNumber) {
+    public Note(String noteName, String description, int pictureNumber, Date date) {
         this.noteName = noteName;
-        this.indexDescription = indexDescription;
+        this.description = description;
         this.pictureNumber = pictureNumber;
+        this.date = date;
     }
 
-    public Note(String noteName, int indexDescription, Date date) {
-        this.noteName = noteName;
-        this.indexDescription = indexDescription;
-        this.date = date;
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
+
+    public String getDescription() {
+        return description;
     }
 
     public String getNoteName() {
         return noteName;
-    }
-
-    public int getIndexDescription() {
-        return indexDescription;
     }
 
     public Date getDate() {
@@ -46,20 +53,10 @@ public class Note implements Parcelable {
 
     protected Note(Parcel in) {
         noteName = in.readString();
-        indexDescription = in.readInt();
+        description = in.readString();
+        date = new Date(in.readLong());
+        pictureNumber = in.readInt();
     }
-
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -69,6 +66,8 @@ public class Note implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(noteName);
-        dest.writeInt(indexDescription);
+        dest.writeInt(pictureNumber);
+        dest.writeString(description);
+        dest.writeLong(date.getTime());
     }
 }
