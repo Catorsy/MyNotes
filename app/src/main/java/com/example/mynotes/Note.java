@@ -7,16 +7,26 @@ import java.util.Date;
 
 
 public class Note implements Parcelable {
+    private String id;
     private String noteName;
     private int pictureNumber;
-    Date date;
     private String description;
+    Date date;
+
 
     public Note(String noteName, String description, int pictureNumber, Date date) {
         this.noteName = noteName;
         this.description = description;
         this.pictureNumber = pictureNumber;
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {

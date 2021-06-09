@@ -13,7 +13,9 @@
     <string name="fragment_navigation">Меню шторки</string>
     <string name="clear">Очистить</string>
     <string name="add_card">Добавить</string>
-    <string name="move_card">Переместить вниз</string>
+    <string name="move_card">Обновить</string>
     <string name="delete">Удалить</string>
     <string name="update_card">Заменить</string>
+    <string name="continue_">Продолжить</string>
+    <string name="sign_out">Выйти</string>
 </resources>
