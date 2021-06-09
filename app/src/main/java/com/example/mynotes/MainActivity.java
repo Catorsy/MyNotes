@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void initeview() {
         Toolbar toolbar = initToolbar();
         initToolbar();
-        //initDrawer(toolbar); //обойдемся без шторки
+        initDrawer(toolbar); //шторка уже не мешает
     }
 
     private void initDrawer(Toolbar toolbar) {
