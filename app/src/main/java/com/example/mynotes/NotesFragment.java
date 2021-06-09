@@ -3,10 +3,12 @@ package com.example.mynotes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -185,8 +188,19 @@ public class NotesFragment extends Fragment {
                 return true;
 
             case R.id.action_clear:
-                data.clearNoteData();
-                adapter.notifyDataSetChanged();
+                // здесь сделаем отмену по кнопке
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+                builder.setTitle(R.string.title).setMessage(R.string.message2).setIcon(R.drawable.delete_all)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.title2, (dialog, which) -> {
+                            Toast.makeText(this.getContext(), "OK", Toast.LENGTH_SHORT).show();
+                            data.clearNoteData();
+                            adapter.notifyDataSetChanged();
+
+                        }).setNegativeButton(R.string.no, (dialog, which) -> {
+                    Toast.makeText(this.getContext(), "И правильно", Toast.LENGTH_SHORT).show();
+                })
+                .show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -216,8 +230,17 @@ public class NotesFragment extends Fragment {
                 return true;
 
             case R.id.action_delete:
-                data.deleteNoteData(position);
-                adapter.notifyItemRemoved(position);
+                //здесь реализуем отмену в серой зоне
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+                builder.setTitle(R.string.title).setMessage(R.string.message).setIcon(R.drawable.cat)
+                        .setCancelable(true) //говорит о том, можно ли отменить наш диалог, тыкнув на серую зону
+                        .setPositiveButton(R.string.ok, (dialog, which) -> {
+                            Toast.makeText(this.getContext(), "OK", Toast.LENGTH_SHORT).show();
+                            data.deleteNoteData(position);
+                            adapter.notifyItemRemoved(position);
+
+                        })
+                        .show(); //show сам вызовет сначала create
                 return true;
 
             case R.id.action_update_from_db:
