@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private void initeview() {
         Toolbar toolbar = initToolbar();
         initToolbar();
-        //initDrawer(toolbar); //обойдемся без шторки
+        initDrawer(toolbar); //шторка вернулась и теперь ничего не перекрывает! Спасибо!
     }
 
     private void initDrawer(Toolbar toolbar) {

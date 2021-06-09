@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--был androidx.drawerlayout.widget.DrawerLayout, но он закрывает заметки-->
-<FrameLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +9,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 <!--    добавим тулбар-->
     <com.google.android.material.appbar.AppBarLayout
@@ -28,14 +33,15 @@
 
 <!--    сделаем обертку-->
     <include layout="@layout/content_main"/>
+    </LinearLayout>
 
-<!--  чтобы не закрывал заметки, шторку уберем-->
-<!-- <com.google.android.material.navigation.NavigationView-->
-<!--        android:id="@+id/nav_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--       app:headerLayout="@layout/nav_header_main"-->
-<!--        app:menu="@menu/main_drawer" />-->
-</FrameLayout>
+  чтобы не закрывал заметки, шторку уберем
+ <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+       app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/main_drawer" />
+</androidx.drawerlayout.widget.DrawerLayout>
