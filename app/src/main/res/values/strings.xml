@@ -18,4 +18,10 @@
     <string name="update_card">Заменить</string>
     <string name="continue_">Продолжить</string>
     <string name="sign_out">Выйти</string>
+    <string name="title">Внимание!</string>
+    <string name="message">Вы подтверждаете удаление?</string>
+    <string name="ok">Подтверждаю</string>
+    <string name="message2">Вы точно хотите удалить всё?</string>
+    <string name="no">Не хочу</string>
+    <string name="title2">Хочу!</string>
 </resources>
