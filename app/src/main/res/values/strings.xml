@@ -3,4 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="change_date">Сменить дату</string>
+    <string name="textAboutApp">Это приложение создано в мае 2021го года в рамках программы обучения программированию. Наслаждайтесь!</string>
+    <string name="settings">Настройки</string>
+    <string name="main_screen">Главный экран</string>
+    <string name="search">Поиск</string>
+    <string name="advise_of_the_day">Совет дня</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="fragment_navigation">Меню шторки</string>
 </resources>
