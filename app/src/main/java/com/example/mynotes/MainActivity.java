@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //тут обработаем кнопки
                 int id = item.getItemId();
-                if (navigateFragment(id)){
+                if (navigateFragment(id)) {
                     drawer.closeDrawer(GravityCompat.START);
                     return true;
                 }
@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //для айдишников: при нажатии добавляем фрагмент
         int id = item.getItemId();
-        if(navigateFragment(id)){
+        if (navigateFragment(id)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean navigateFragment (int id){
+    private boolean navigateFragment(int id) {
         switch (id) {
             case R.id.choose_settings:
             case R.id.action_settings:
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         //строка "поиск"
         MenuItem search = menu.findItem(R.id.action_search);
-        SearchView searchText = (SearchView)search.getActionView();
+        SearchView searchText = (SearchView) search.getActionView();
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -122,19 +122,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Fragment fragmentToRemove = getVisibleFragment(fragmentManager);
-        if(fragmentToRemove != null){
+        if (fragmentToRemove != null) {
             transaction.remove(fragmentToRemove);
         }
         transaction.add(R.id.fragment_container, fragment);
         transaction.commit();
     }
 
-    private Fragment getVisibleFragment(FragmentManager fragmentManager){
+    private Fragment getVisibleFragment(FragmentManager fragmentManager) {
         List<Fragment> fragments = fragmentManager.getFragments();
         int countFragments = fragments.size();
-        for(int i = countFragments - 1; i >= 0; i--){
+        for (int i = countFragments - 1; i >= 0; i--) {
             Fragment fragment = fragments.get(i);
-            if(fragment.isVisible())
+            if (fragment.isVisible())
                 return fragment;
         }
         return null;
