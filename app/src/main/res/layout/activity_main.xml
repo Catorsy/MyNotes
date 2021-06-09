@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,24 +9,29 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-<!--    добавим тулбар-->
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:id="@+id/bar_layout"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.MyNotes.AppBarOverlay">
-<!--        тут был попап-->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#95D1EF">
+            android:id="@+id/bar_layout"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MyNotes.AppBarOverlay">
+            <!--        тут был попап-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#95D1EF">
 
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-<!--    сделаем обертку-->
-    <include layout="@layout/content_main"/>
+        <!--    сделаем обертку-->
+        <include layout="@layout/content_main"/>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -43,5 +42,3 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/main_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>
-
-</LinearLayout>
